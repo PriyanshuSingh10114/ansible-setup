@@ -17,25 +17,25 @@ This guide explains how to set up an Ansible control node on an AWS EC2 instance
 
 ## 📌 1. Update System Packages
 
-sudo apt update && sudo apt upgrade -y
+- sudo apt update && sudo apt upgrade -y
 
 📌 2. Install Ansible on the Control Node
 
-sudo add-apt-repository --yes --update ppa:ansible/ansible
+- sudo add-apt-repository --yes --update ppa:ansible/ansible
 
-sudo apt install ansible -y
-
+- sudo apt install ansible -y
 
 Verify installation:
 
 ansible --version
+
+---
 
 📌 3. Create a Directory for SSH Keys
 
 mkdir ~/keys
 
 chmod 700 ~/keys
-
 
 Upload your PEM file to this folder:
 
@@ -49,23 +49,25 @@ Edit the inventory file:
 
 sudo vim /etc/ansible/hosts
 
-Add your EC2 instances:
+---
+
+- Add your EC2 instances:
 
 [servers]
 
-server_1 ansible_host=xxxxx
+- server_1 ansible_host=xxxxx
 
-server_2 ansible_host=xxxx
+- server_2 ansible_host=xxxx
 
-server_3 ansible_host=xxxx
+- server_3 ansible_host=xxxx
 
 [servers:vars]
 
-ansible_user=ubuntu
+- ansible_user=ubuntu
 
-ansible_python_interpreter=/usr/bin/python3
+- ansible_python_interpreter=/usr/bin/python3
 
-ansible_ssh_private_key_file=/home/ubuntu/keys/your-key.pem
+- ansible_ssh_private_key_file=/home/ubuntu/keys/your-key.pem
 
 📌 5. Fix SSH Host Key Issues
 
@@ -73,6 +75,7 @@ If the EC2 instance was recreated, SSH keys may mismatch. Clear old keys:
 
 rm -f ~/.ssh/known_hosts
 
+---
 
 📌 6. Test SSH Connectivity
 
@@ -111,6 +114,8 @@ Uptime:
 
 ansible servers -a "uptime"
 
+---
+
 📌 9. Running a Sample Playbook
 
 Create a playbook:
@@ -128,6 +133,7 @@ vim date_play.yml
     - name: Show date again
       command: date
 
+---
 
 Run it:
 
@@ -146,15 +152,9 @@ Fix permissions:
 
 chmod 600 ~/keys/your-key.pem
 
-❗ Inventory Format Errors
-
-Ensure sections start correctly:
-
-[servers]
-
-[servers:vars]
 
 
 ---
+<h3>Deploying static page for testing </h3>
 
-ansible-playbook update_upgrade.yml
+ansible-playbook deploy_static_page.yml
