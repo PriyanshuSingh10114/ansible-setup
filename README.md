@@ -1,5 +1,5 @@
 
-# 🛠️ Ansible Setup on AWS EC2
+# 🛠️ Ansible Setup on AWS EC2 and working with one master node and three servers
 
 This guide explains how to set up an Ansible control node on an AWS EC2 instance and manage multiple remote EC2 servers using SSH keys and inventory groups.
 
